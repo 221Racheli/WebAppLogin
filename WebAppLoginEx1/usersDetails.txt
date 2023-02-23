@@ -1,0 +1,6 @@
+{"userId":1,"password":"1","email":"a"}
+{"userId":2,"password":"2","email":"b"}
+{"userId":0,"firstName":"racheli","lastName":"fried","password":"","email":""}
+{"userId":0,"firstName":"rrr","lastName":"jkkkkkkk","password":"1","email":"1@gmail.com"}
+{"userId":5,"firstName":"bracha","lastName":"bohanski","password":"2222","email":"2@gnail.com"}
+{"userId":0,"firstName":"Racheli","lastName":"Fried","password":"221","email":"221racheli@gmail.com"}

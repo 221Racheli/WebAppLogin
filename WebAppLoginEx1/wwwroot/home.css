@@ -1,0 +1,86 @@
+﻿body {
+    margin: 0;
+    padding: 0;
+    background-color: whitesmoke;
+    font-family: 'Arial';
+}
+
+#LogIn {
+    width: 382px;
+    overflow: hidden;
+    margin: auto;
+    margin-top: 50px;
+    padding: 80px;
+    background: #a9a5a5;
+    border-radius: 15px;
+    border-color:#000000;
+}
+
+#regist {
+    width: 382px;
+    overflow: hidden;
+    margin: auto;
+    visibility: hidden;
+    margin-top: 50px;
+    padding: 80px;
+    background: #a9a5a5;
+    border-radius: 15px;
+    border-color: #000000;
+}
+
+#update {
+    width: 382px;
+    overflow: hidden;
+    margin: auto;
+    margin-top: 50px;
+    padding: 80px;
+    background: #a9a5a5;
+    border-radius: 15px;
+    border-color: #000000;
+}
+
+h3 {
+    text-align: center;
+    color: #000000;
+    padding: 20px;
+}
+
+label {
+    color:aqua;
+    font-size: 17px;
+}
+
+/*#Uname {
+    width: 300px;
+    height: 30px;
+    border: none;
+    border-radius: 3px;
+    padding-left: 8px;
+}
+
+#Pass {
+    width: 300px;
+    height: 30px;
+    border: none;
+    border-radius: 3px;
+    padding-left: 8px;
+}*/
+
+#log {
+    width: 300px;
+    height: 30px;
+    border: none;
+    border-radius: 17px;
+    padding-left: 7px;
+    color: blue;
+}
+
+span {
+    color: white;
+    font-size: 17px;
+}
+
+a {
+    float: inherit;
+    margin: auto;
+}
