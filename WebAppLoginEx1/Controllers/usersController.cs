@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using entities;
+using Microsoft.AspNetCore.Mvc;
+using Service;
 using System.Reflection.PortableExecutable;
 using System.Text.Json;
 
@@ -11,6 +13,9 @@ namespace WebAppLoginEx1.Controllers
     public class usersController : ControllerBase
     {
 
+        UserService service = new UserService();
+        PasswordsService servicePass = new PasswordsService();
+
         string filePath = "./usersDetails.txt";
 
         // GET: api/<usersController>
@@ -22,9 +27,9 @@ namespace WebAppLoginEx1.Controllers
 
         // GET api/<usersController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public User Get(int id)
         {
-            return "value";
+            return service.getbyId(id);
         }
 
 
@@ -34,7 +39,7 @@ namespace WebAppLoginEx1.Controllers
         [HttpPost]
         public ActionResult<User> LoginPost([FromBody] User loginUser)
         {
-            User found = foundUser(loginUser);
+            User found = service.login(loginUser);
             if (found != null)
                 return found;
             return NoContent();
@@ -45,42 +50,23 @@ namespace WebAppLoginEx1.Controllers
         [HttpPost("regist")]
         public ActionResult<User> Post([FromBody] User userRegist)
         {
-            if (!existUserName(userRegist.email))
+            Password pass = new Password(userRegist.password);
+            if (servicePass.getPasswordRate(pass) > 2)
             {
-                Console.WriteLine("regist controler");
-                int numberOfUsers = System.IO.File.ReadLines(filePath).Count();
-                userRegist.userId = numberOfUsers + 1;
-                string userJson = JsonSerializer.Serialize(userRegist);
-                System.IO.File.AppendAllText(filePath, userJson + Environment.NewLine);
-                return CreatedAtAction(nameof(Get), new { id = userRegist.userId }, userRegist);
+                User userCreated = service.register(userRegist);
+                if (userCreated != null)
+                    return CreatedAtAction(nameof(Get), new { id = userCreated.userId }, userCreated);
             }
             return BadRequest("email already exists");
-
         }
+
 
 
         // PUT api/<usersController>/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] User userToUpdate)
         {
-            string textToReplace = string.Empty;
-            using (StreamReader reader = System.IO.File.OpenText(filePath))
-            {
-                string currentUserInFile;
-                while ((currentUserInFile = reader.ReadLine()) != null)
-                {
-
-                    User user = JsonSerializer.Deserialize<User>(currentUserInFile);
-                    if (user.userId == id)
-                        textToReplace = currentUserInFile;
-                }
-            }
-            if (textToReplace != string.Empty)
-            {
-                string text = System.IO.File.ReadAllText(filePath);
-                text = text.Replace(textToReplace, JsonSerializer.Serialize(userToUpdate));
-                System.IO.File.WriteAllText(filePath, text);
-            }
+            service.update(userToUpdate, id);
 
         }
 
@@ -90,34 +76,5 @@ namespace WebAppLoginEx1.Controllers
         {
         }
 
-        public User foundUser(User userToSearch)
-        {
-            using (StreamReader reader = System.IO.File.OpenText(filePath))
-            {
-                string? currentUserInFile;
-                while ((currentUserInFile = reader.ReadLine()) != null)
-                {
-                    User user = JsonSerializer.Deserialize<User>(currentUserInFile);
-                    if (user.email == userToSearch.email && user.password == userToSearch.password)
-                        return user;
-                }
-            }
-            return null;
-        }
-
-        public Boolean existUserName(String userName)
-        {
-            using (StreamReader reader = System.IO.File.OpenText(filePath))
-            {
-                string? currentUserInFile;
-                while ((currentUserInFile = reader.ReadLine()) != null)
-                {
-                    User user = JsonSerializer.Deserialize<User>(currentUserInFile);
-                    if (user.email == userName)
-                        return true;
-                }
-            }
-            return false;
-        }
     }
 }

@@ -4,9 +4,9 @@
     <meta charset="utf-8" />
     <title></title>
     <link rel="stylesheet" type="text/css" href="home.css" />
-    <script src="home.js"></script>
 </head>
 <body>
+    <script src="home.js"></script>
     <div>
         <div id="LogIn">
             <h4>logIn</h4>
@@ -24,7 +24,7 @@
             <a onclick="document.getElementById('regist').style.setProperty('visibility','visible')">sign up</a>
         </div>
 
-        <div  id="regist">
+        <div id="regist">
             <h4>regist</h4>
             <label for="registEmail">email:</label>
             <br />
@@ -32,7 +32,8 @@
             <br />
             <label for="registPassword">password:</label>
             <br />
-            <input type="password" id="registPassword" />
+            <input onkeypress=getPasswordStrength(this.value) type="password" id="registPassword" />
+            <progress id="passwordStrength" value="0" max="4" style="background-color: #4CAF50">  </progress>
             <br />
             <label for="firstName">first name:</label>
             <br />
