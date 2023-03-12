@@ -9,7 +9,7 @@ using Zxcvbn;
 
 namespace Service
 {
-    public class PasswordsService
+    public class PasswordsService : IPasswordsService
     {
         public int getPasswordRate(Password password)
         {

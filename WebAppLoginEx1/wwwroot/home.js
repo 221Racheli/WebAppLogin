@@ -1,7 +1,8 @@
 ﻿
 
 async function LogIn() {
-    console.log("login");
+    console.log("login & try git");
+    console.log("try git");
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
     const user = JSON.stringify({ password: password, email: email });
@@ -81,4 +82,6 @@ async function getPasswordStrength(password) {
     console.log(data);
     document.getElementById("passwordStrength").value=data ;
 }
+
+
 

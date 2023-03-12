@@ -6,34 +6,34 @@ using Zxcvbn;
 
 namespace Service
 {
-    public class UserService
+    public class UserService : IUserService
     {
         UserRepository repository = new UserRepository();
-        public User login(User user)
+        public async Task<User> loginAsync(User user)
         {
-            return repository.foundUser(user);
+            return await repository.foundUserAsync(user);
         }
 
-        public User register(User user)
+        public async Task<User> registerAsync(User user)
         {
-            if(!repository.existUserName(user.email))
+            if (!await repository.existUserNameAsync(user.email))
             {
-                return repository.addUser(user);
+                return await repository.addUserAsync(user);
             }
             return null;
         }
 
-        public void update(User user,int id)
+        public async Task updateAsync(User user, int id)
         {
-            repository.updateUser(user, id);
+            await repository.updateUserAsync(user, id);
         }
 
-        public User getbyId(int id)
+        public async Task<User> getbyIdAsync(int id)
         {
-            return repository.getUser(id);
+            return await repository.getUserAsync(id);
         }
 
-        
-       
+
+
     }
 }

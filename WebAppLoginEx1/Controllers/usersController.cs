@@ -27,9 +27,9 @@ namespace WebAppLoginEx1.Controllers
 
         // GET api/<usersController>/5
         [HttpGet("{id}")]
-        public User Get(int id)
+        public async Task<User> Get(int id)
         {
-            return service.getbyId(id);
+            return await service.getbyIdAsync(id);
         }
 
 
@@ -37,9 +37,9 @@ namespace WebAppLoginEx1.Controllers
 
 
         [HttpPost]
-        public ActionResult<User> LoginPost([FromBody] User loginUser)
+        public async Task<ActionResult<User>> LoginPost([FromBody] User loginUser)
         {
-            User found = service.login(loginUser);
+            User found = await service.loginAsync(loginUser);
             if (found != null)
                 return found;
             return NoContent();
@@ -48,12 +48,12 @@ namespace WebAppLoginEx1.Controllers
 
 
         [HttpPost("regist")]
-        public ActionResult<User> Post([FromBody] User userRegist)
+        public async Task<ActionResult<User>> Post([FromBody] User userRegist)
         {
             Password pass = new Password(userRegist.password);
             if (servicePass.getPasswordRate(pass) > 2)
             {
-                User userCreated = service.register(userRegist);
+                User userCreated = await service.registerAsync(userRegist);
                 if (userCreated != null)
                     return CreatedAtAction(nameof(Get), new { id = userCreated.userId }, userCreated);
             }
@@ -64,9 +64,9 @@ namespace WebAppLoginEx1.Controllers
 
         // PUT api/<usersController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] User userToUpdate)
+        public async Task Put(int id, [FromBody] User userToUpdate)
         {
-            service.update(userToUpdate, id);
+            await service.updateAsync(userToUpdate, id);
 
         }
 
