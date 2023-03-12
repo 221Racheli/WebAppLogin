@@ -8,11 +8,11 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
+builder.Services.AddTransient<IPasswordsService, PasswordsService>();
+
 builder.Services.AddTransient<IUserRepository, UserRepository>();
 
 builder.Services.AddTransient<IUserService, UserService>();
-
-builder.Services.AddTransient<IPasswordsService, PasswordsService>();
 
 var app = builder.Build();
 

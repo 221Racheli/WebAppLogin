@@ -11,7 +11,12 @@ namespace WebAppLoginEx1.Controllers
     public class passwordsController : ControllerBase
     {
 
-        PasswordsService service = new PasswordsService();
+        IPasswordsService service;
+
+        public passwordsController(IPasswordsService service)
+        {
+            this.service = service;
+        }
 
         // GET: api/<passwordsController>
         [HttpGet]

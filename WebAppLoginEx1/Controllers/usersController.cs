@@ -13,8 +13,14 @@ namespace WebAppLoginEx1.Controllers
     public class usersController : ControllerBase
     {
 
-        UserService service = new UserService();
-        PasswordsService servicePass = new PasswordsService();
+        IUserService service;
+        IPasswordsService servicePass;
+
+        public usersController(IUserService service, IPasswordsService servicePass)
+        {
+            this.service = service;
+            this.servicePass = servicePass;
+        }
 
         string filePath = "./usersDetails.txt";
 

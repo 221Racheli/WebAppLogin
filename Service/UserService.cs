@@ -8,7 +8,13 @@ namespace Service
 {
     public class UserService : IUserService
     {
-        UserRepository repository = new UserRepository();
+        IUserRepository repository;
+
+        public UserService(IUserRepository repository)
+        {
+            this.repository = repository;
+        }
+
         public async Task<User> loginAsync(User user)
         {
             return await repository.foundUserAsync(user);
