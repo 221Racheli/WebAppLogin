@@ -17,7 +17,7 @@ async function Update() {
     const password = document.getElementById("registPassword").value;
     const firstName = document.getElementById("firstName").value;
     const lastName = document.getElementById("lastName").value;
-    //const user = JSON.stringify({ password: password, email: email, firstName: firstName, lastName: lastName });
+    const user = JSON.stringify({ password: password, email: email, firstName: firstName, lastName: lastName });
     const response = await fetch(
         `https://localhost:44390/api/users/${user.id}`, {
         method: 'PUT',

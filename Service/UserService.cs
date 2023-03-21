@@ -22,7 +22,7 @@ namespace Service
 
         public async Task<User> registerAsync(User user)
         {
-            if (!await repository.existUserNameAsync(user.email))
+            if (!await repository.existEmailAsync(user.Email))
             {
                 return await repository.addUserAsync(user);
             }

@@ -22,14 +22,6 @@ namespace WebAppLoginEx1.Controllers
             this.servicePass = servicePass;
         }
 
-        string filePath = "./usersDetails.txt";
-
-        // GET: api/<usersController>
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
 
         // GET api/<usersController>/5
         [HttpGet("{id}")]
@@ -56,14 +48,14 @@ namespace WebAppLoginEx1.Controllers
         [HttpPost("regist")]
         public async Task<ActionResult<User>> Post([FromBody] User userRegist)
         {
-            Password pass = new Password(userRegist.password);
+            Password pass = new Password(userRegist.Password);
             if (servicePass.getPasswordRate(pass) > 2)
             {
                 User userCreated = await service.registerAsync(userRegist);
                 if (userCreated != null)
-                    return CreatedAtAction(nameof(Get), new { id = userCreated.userId }, userCreated);
+                    return CreatedAtAction(nameof(Get), new { id = userCreated.Id }, userCreated);
             }
-            return BadRequest("email already exists");
+            return BadRequest();
         }
 
 

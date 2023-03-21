@@ -1,86 +1,53 @@
 ﻿using entities;
 using System.Text.Json;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace Repository
 {
     public class UserRepository : IUserRepository
     {
-        string filePath = "./usersDetails.txt";
+
+        MyShopSite325593952Context _DbContext;
+
+        public UserRepository(MyShopSite325593952Context dbContext)
+        {
+            _DbContext = dbContext;
+        }
+
         public async Task<User> foundUserAsync(User userToSearch)
         {
-            using (StreamReader reader = System.IO.File.OpenText(filePath))
-            {
-                string? currentUserInFile;
-                while ((currentUserInFile = await reader.ReadLineAsync()) != null)
-                {
-                    User user = JsonSerializer.Deserialize<User>(currentUserInFile);
-                    if (user.email == userToSearch.email && user.password == userToSearch.password)
-                        return user;
-                }
-            }
+            var users= await _DbContext.Users.Where(user => userToSearch.Email == user.Email && userToSearch.Password == user.Password).ToListAsync();
+            if(users!=null)
+                return users[0];
             return null;
         }
 
-        public async Task<Boolean> existUserNameAsync(String userName)
+        public async Task<Boolean> existEmailAsync(String Email)
         {
-            using (StreamReader reader = System.IO.File.OpenText(filePath))
-            {
-                string? currentUserInFile;
-                while ((currentUserInFile = await reader.ReadLineAsync()) != null)
-                {
-                    User user = JsonSerializer.Deserialize<User>(currentUserInFile);
-                    if (user.email == userName)
-                        return true;
-                }
-            }
+            var users = await _DbContext.Users.Where(user => Email == user.Email).ToListAsync();
+            if (users.Count > 0)
+                return true;
             return false;
         }
 
         public async Task<User> addUserAsync(User user)
         {
-            int numberOfUsers = System.IO.File.ReadLines(filePath).Count();
-            user.userId = numberOfUsers + 1;
-            string userJson = JsonSerializer.Serialize(user);
-            await System.IO.File.AppendAllTextAsync(filePath, userJson + Environment.NewLine);
+            await _DbContext.Users.AddAsync(user);
+            await _DbContext.SaveChangesAsync();
             return user;
         }
 
 
         public async Task updateUserAsync(User userToUpdate, int id)
         {
-            string textToReplace = string.Empty;
-            using (StreamReader reader = System.IO.File.OpenText(filePath))
-            {
-                string currentUserInFile;
-                while ((currentUserInFile = await reader.ReadLineAsync()) != null)
-                {
-
-                    User user = JsonSerializer.Deserialize<User>(currentUserInFile);
-                    if (user.userId == id)
-                        textToReplace = currentUserInFile;
-                }
-            }
-            if (textToReplace != string.Empty)
-            {
-                string text = await System.IO.File.ReadAllTextAsync(filePath);
-                text = text.Replace(textToReplace, JsonSerializer.Serialize(userToUpdate));
-                await System.IO.File.WriteAllTextAsync(filePath, text);
-            }
+            _DbContext.Users.Update(userToUpdate);
+            await _DbContext.SaveChangesAsync();
         }
 
         public async Task<User> getUserAsync(int id)
         {
-            using (StreamReader reader = System.IO.File.OpenText(filePath))
-            {
-                string? currentUserInFile;
-                while ((currentUserInFile = await reader.ReadLineAsync()) != null)
-                {
-                    User user = JsonSerializer.Deserialize<User>(currentUserInFile);
-                    if (user.userId == id)
-                        return user;
-                }
-            }
-            return null;
+            return await _DbContext.Users.FindAsync(id);
         }
     }
 }
