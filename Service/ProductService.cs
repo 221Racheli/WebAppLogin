@@ -27,6 +27,11 @@ namespace Service
             return await repository.getProductsWithCategoryAsync();
         }
 
+        public async Task<IEnumerable<Product>> getProductsBySearch(string? desc, int? minPrice, int? maxPrice, IEnumerable<string>? categoryId)
+        {
+            return await repository.getProductsBySearch(desc, minPrice, maxPrice, categoryId);
+        }
+
 
     }
 }

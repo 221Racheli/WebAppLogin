@@ -22,6 +22,11 @@ namespace WebAppLoginEx1.Controllers
         {
             return await service.getProductsWithCategoryAsync();
         }
+        [HttpGet("search")]
+        public async Task<IEnumerable<Product>> GetbySearch([FromQuery]IEnumerable<string>? categoryId,string? desc, int? minPrice, int? maxPrice)
+        {
+            return await service.getProductsBySearch(desc, minPrice, maxPrice, categoryId);
+        }
 
         // GET api/<ProductsController>/5
         [HttpGet("{id}")]
@@ -29,6 +34,7 @@ namespace WebAppLoginEx1.Controllers
         {
             return "value";
         }
+
 
         // POST api/<ProductsController>
         [HttpPost]
