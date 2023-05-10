@@ -38,7 +38,7 @@ namespace Repository
                     &&
                     (maxPrice == null ? (true) : product.Price < maxPrice)
                     &&
-                    (categoryId.Count()<=0 ?(true): categoryId.Contains(product.Category.Id.ToString()))
+                    (categoryId.Count()<=0  ? (true): categoryId.Contains(product.Category.Id.ToString()))
         ).OrderBy(product => product.Price);
 
             return await query.ToListAsync();

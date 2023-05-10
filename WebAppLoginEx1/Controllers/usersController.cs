@@ -1,4 +1,6 @@
-﻿using entities;
+﻿using AutoMapper;
+using DTO;
+using entities;
 using Microsoft.AspNetCore.Mvc;
 using Service;
 using System.Reflection.PortableExecutable;
@@ -12,14 +14,17 @@ namespace WebAppLoginEx1.Controllers
     [ApiController]
     public class usersController : ControllerBase
     {
-
+        ILogger<usersController> logger;
         IUserService service;
         IPasswordsService servicePass;
+        IMapper mapper;
 
-        public usersController(IUserService service, IPasswordsService servicePass)
+        public usersController(IUserService service, IPasswordsService servicePass, IMapper mapper, ILogger<usersController> logger)
         {
             this.service = service;
             this.servicePass = servicePass;
+            this.mapper = mapper;
+            this.logger = logger;
         }
 
 
@@ -35,25 +40,36 @@ namespace WebAppLoginEx1.Controllers
 
 
         [HttpPost]
-        public async Task<ActionResult<User>> LoginPost([FromBody] User loginUser)
+        public async Task<ActionResult<UserDTO>> LoginPost([FromBody] UserDTO loginUserDTO)
         {
+            User loginUser = mapper.Map<UserDTO, User>(loginUserDTO);
             User found = await service.loginAsync(loginUser);
             if (found != null)
-                return found;
+            {
+                UserDTO foundDTO = mapper.Map<User, UserDTO>(found);
+                logger.LogInformation($"Login - userName: {foundDTO.Email} at {DateTime.UtcNow.ToLongTimeString()}");
+                return foundDTO;
+            }
             return NoContent();
         }
 
 
 
         [HttpPost("regist")]
-        public async Task<ActionResult<User>> Post([FromBody] User userRegist)
+        public async Task<ActionResult<UserDTO>> Post([FromBody] UserDTO userRegistDTO)
         {
-            Password pass = new Password(userRegist.Password);
+            Password pass = new Password(userRegistDTO.Password);
             if (servicePass.getPasswordRate(pass) > 2)
             {
+                User userRegist = mapper.Map<UserDTO, User>(userRegistDTO);
                 User userCreated = await service.registerAsync(userRegist);
                 if (userCreated != null)
-                    return CreatedAtAction(nameof(Get), new { id = userCreated.Id }, userCreated);
+                {
+                    UserDTO userDTOCreated = mapper.Map<User, UserDTO>(userCreated);
+                    logger.LogInformation($"Regist - userName: {userDTOCreated.Email} at {DateTime.UtcNow.ToLongTimeString()}");
+                    return CreatedAtAction(nameof(Get), new { id = userDTOCreated.Id }, userDTOCreated);
+                }
+                    
             }
             return BadRequest();
         }

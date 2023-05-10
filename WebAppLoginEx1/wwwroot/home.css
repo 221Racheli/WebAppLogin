@@ -1,15 +1,45 @@
-﻿/*body {
+﻿html, body {
+    direction: rtl;
     margin: 0;
     padding: 0;
-    background-color: whitesmoke;
-    font-family: 'Arial';
-}*/
+}
+
+* {
+    font-size: 100%;
+    font-family: system-ui;
+}
+
+ul {
+    margin: 0;
+}
+.bar::before {
+    content: 'MY WALL STICKER SHOP';
+    color: white;
+     /*display: inline-block; */
+    position: absolute;
+/*     margin: 0 auto; 
+     display: block; */
+    top: 8px;
+    left: 51%;
+    font-family: Helvetica;
+}
+.floatRight {
+    float: right;
+}
+
+.bar {
+    background-color: black;
+    height: 35px;
+}
+
+
 #LogIn {
+    direction: ltr;
     border: 1px solid black;
     padding: 20px;
     width: 300px;
     margin: 0 auto;
-    margin-top:50px;
+    margin-top: 50px;
 }
 
     #LogIn h4 {

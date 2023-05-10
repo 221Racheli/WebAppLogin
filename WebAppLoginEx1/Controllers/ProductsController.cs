@@ -1,4 +1,6 @@
-﻿using entities;
+﻿using AutoMapper;
+using DTO;
+using entities;
 using Microsoft.AspNetCore.Mvc;
 using Service;
 
@@ -11,21 +13,28 @@ namespace WebAppLoginEx1.Controllers
     public class ProductsController : ControllerBase
     {
         IProductService service;
-        public ProductsController(IProductService service)
+        IMapper mapper;
+        public ProductsController(IProductService service, IMapper mapper)
         {
             this.service = service;
+            this.mapper = mapper;
         }
 
         // GET: api/<ProductsController>
         [HttpGet]
-        public async Task<IEnumerable<Product>> Get()
+        public async Task<IEnumerable<ProductDTO>> Get()
         {
-            return await service.getProductsWithCategoryAsync();
+            IEnumerable<Product> products = await service.getProductsWithCategoryAsync();
+            IEnumerable<ProductDTO> productsDTO = mapper.Map<IEnumerable<Product>, IEnumerable<ProductDTO>>(products);
+            return productsDTO;
         }
         [HttpGet("search")]
-        public async Task<IEnumerable<Product>> GetbySearch([FromQuery]IEnumerable<string>? categoryId,string? desc, int? minPrice, int? maxPrice)
+        public async Task<IEnumerable<ProductDTO>> GetbySearch([FromQuery] IEnumerable<string>? categoryId, string? desc, int? minPrice, int? maxPrice)
         {
-            return await service.getProductsBySearch(desc, minPrice, maxPrice, categoryId);
+            IEnumerable<Product> products = await service.getProductsBySearch(desc, minPrice, maxPrice, categoryId);
+            IEnumerable<ProductDTO> productsDTO = mapper.Map<IEnumerable<Product>, IEnumerable<ProductDTO>>(products);
+            return productsDTO;
+
         }
 
         // GET api/<ProductsController>/5
@@ -38,11 +47,15 @@ namespace WebAppLoginEx1.Controllers
 
         // POST api/<ProductsController>
         [HttpPost]
-        public async Task<ActionResult<Product>> Post([FromBody] Product product)
+        public async Task<ActionResult<ProductDTO>> Post([FromBody] ProductDTO productDTO)
         {
-            Product addProduct= await service.addProductAsync(product);
-            if(addProduct!=null)
-                return CreatedAtAction(nameof(Get), new { id = addProduct.Id }, addProduct);
+            Product product = mapper.Map<ProductDTO, Product>(productDTO);
+            Product addProduct = await service.addProductAsync(product);
+            if (addProduct != null)
+            {
+                ProductDTO addProductDTO = mapper.Map<Product, ProductDTO>(addProduct);
+                return CreatedAtAction(nameof(Get), new { id = addProductDTO.Id }, addProductDTO);
+            }
             return BadRequest();
         }
     }

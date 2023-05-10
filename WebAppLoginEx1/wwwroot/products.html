@@ -1,9 +1,8 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <script src="../Scripts/products.js"></script>
-    <link href="../Style/products.css" rel="stylesheet" />
-
+    <script src="../Scripts/Products.js"></script>
+    <link href="../Style/Products.css" rel="stylesheet" />
     <meta charset="utf-8" />
     <title></title>
     <template id="temp-card">
@@ -11,7 +10,7 @@
             <div class="img-w">
                 <img src="tmp.jpg" alt="" style="width:100%">
             </div>
-            <h1>new product</h1>
+            <h1></h1>
             <p class="price"></p>
             <p class="description"></p>
             <p><button>הוסף לסל</button></p>
@@ -21,8 +20,8 @@
         <div class="cb checkbox">
             <input type="checkbox" class="opt" id="" value="">
             <label for="">
-                <span class="Count"></span>
                 <span class="OptionName"></span>
+                <span class="Count"></span>
                 </a>
             </label>
         </div>
@@ -34,7 +33,7 @@
             <section class="QuickLinks">
                 <ul>
                     <li class="" data-section="myAccount">
-                        <a href="#" title="כניסה לצפייה בפרטי החשבון" onclick="TrackLinkID(this);" accesskey="h">החשבון שלי</a>
+                        <a href="#" title="כניסה לצפייה בפרטי החשבון" onclick="TrackLinkID();" accesskey="h">החשבון שלי</a>
                     </li>
                     <li>
                         <a href="#" title="קניה מהירה">קניה מהירה</a>
@@ -44,7 +43,6 @@
                     </li>
                 </ul>
             </section>
-
             <span class="BagSummary MiniBagNonSecure">
                 <a href="shoppingbag.html">
                     <div class="Icon">
@@ -82,20 +80,20 @@
 
             <input type="text" id="nameSearch" class="floatRight" placeholder="חיפוש לפי שם מוצר">
 
-            <button class="floatRight" tabindex="0" onclick="filterProducts()">
-                <span class="header42"><img src="Images/searchIcon.svg" alt="סמל חיפוש"></span>
+            <button class="floatRight" tabindex="0" onclick="search()">
+                <span class="header42"><img src="pictures/Icons/icons8-search.gif" alt="סמל חיפוש"></span>
             </button>
         </div>
         <div id="priceRangeFilter" class="filterBreak">
             <div><span id="counter">  </span> מחיר:</div>
 
             <input type="text" maxlength="9" id="minPrice" class="priceInputText">
-            <span class="priceCurrency">$</span>
+            <span class="priceCurrency">₪</span>
 
             <input type="text" maxlength="9" id="maxPrice" class="priceInputText">
-            <span class="priceCurrency">$</span>
-            <button onclick="filterProducts()">
-                <span><img src="Images/searchIcon.svg" alt="סמל חיפוש"></span>
+            <span class="priceCurrency">₪</span>
+            <button onclick="search()">
+                <span><img src="pictures/Icons/icons8-search.gif" alt="סמל חיפוש"></span>
             </button>
         </div>
     </div>

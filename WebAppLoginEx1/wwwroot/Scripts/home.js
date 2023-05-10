@@ -1,8 +1,6 @@
 ﻿
 
 async function LogIn() {
-    console.log("login & try git");
-    console.log("try git");
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
     const user = JSON.stringify({ password: password, email: email });
@@ -24,9 +22,10 @@ async function LogIn() {
         }
         else {
             const data = await response.json();
+            console.log(data);
             if (data) {
-                sessionStorage.setItem("userInfo", JSON.stringify({ firstName: data.firstName, lastName: data.lastName, id: data.userId }));
-                window.location.href = "update.html";
+                localStorage.setItem("userInfo", JSON.stringify({ firstName: data.firstName, lastName: data.lastName, id: data.id }));
+                window.location.href = "products.html";
             }
         }
     }

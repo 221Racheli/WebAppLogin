@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Text;
 using System.Text.Json.Serialization;
+using System.Threading.Tasks;
 
-namespace entities;
+namespace DTO;
 
-public partial class User
+public partial class UserDTO
 {
     public int Id { get; set; }
 
@@ -20,6 +23,5 @@ public partial class User
     [EmailAddress(ErrorMessage = "Email not valid")]
 
     public string Email { get; set; } = null!;
-
-    public virtual ICollection<Order> Orders { get; } = new List<Order>();
 }
+

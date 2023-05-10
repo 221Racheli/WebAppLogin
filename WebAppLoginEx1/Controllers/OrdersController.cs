@@ -1,4 +1,6 @@
-﻿using entities;
+﻿using AutoMapper;
+using DTO;
+using entities;
 using Microsoft.AspNetCore.Mvc;
 using Service;
 
@@ -11,28 +13,37 @@ namespace WebAppLoginEx1.Controllers
     public class OrdersController : ControllerBase
     {
         IOrderService service;
-        public OrdersController(IOrderService service)
+        IMapper mapper;
+
+        public OrdersController(IOrderService service, IMapper mapper)
         {
             this.service = service;
+            this.mapper = mapper;
         }
 
 
         // GET api/<OrdersController>/5
         [HttpGet("{id}")]
-        public async Task<Order> Get(int id)
+        public async Task<OrderDTO> Get(int id)
         {
-            return await service.getOrderAsync(id);
+            Order order = await service.getOrderAsync(id);
+            OrderDTO orderDTO = mapper.Map<Order, OrderDTO>(order);
+            return orderDTO;
         }
 
         // POST api/<OrdersController>
         [HttpPost]
-        public async Task<ActionResult<Order>> Post([FromBody] Order order)
+        public async Task<ActionResult<OrderDTO>> Post([FromBody] OrderDTO orderDTO)
         {
-            Order orderCreated=await service.addOrderAsync(order);
+            Order order = mapper.Map<OrderDTO, Order>(orderDTO);
+            Order orderCreated = await service.addOrderAsync(order);
             if (orderCreated != null)
-                return CreatedAtAction(nameof(Get), new { id = orderCreated.Id }, orderCreated);
+            {
+                OrderDTO orderCreatedDTO = mapper.Map<Order, OrderDTO>(orderCreated);
+                return CreatedAtAction(nameof(Get), new { id = orderCreatedDTO.Id }, orderCreatedDTO);
+            }
             return BadRequest();
-    }
+        }
 
 
     }

@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
-namespace entities;
+namespace DTO;
 
-public partial class Product
+public partial class ProductDTO
 {
     public int Id { get; set; }
 
@@ -12,13 +16,12 @@ public partial class Product
 
     public int CategoryId { get; set; }
 
+    public string CategoryName { get; set; }
+
     public string? Description { get; set; }
 
     public double Price { get; set; }
 
     public string? Img { get; set; }
 
-    public virtual Category Category { get; set; } = null!;
-
-    public virtual ICollection<OrderItem> OrderItems { get; } = new List<OrderItem>();
 }
