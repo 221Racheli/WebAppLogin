@@ -1,8 +1,9 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <script src="../Scripts/Products.js"></script>
-    <link href="../Style/Products.css" rel="stylesheet" />
+    <script src="../Scripts/products.js"></script>
+    <link href="../Style/products.css" rel="stylesheet" />
+
     <meta charset="utf-8" />
     <title></title>
     <template id="temp-card">
@@ -10,7 +11,7 @@
             <div class="img-w">
                 <img src="tmp.jpg" alt="" style="width:100%">
             </div>
-            <h1></h1>
+            <h1>new product</h1>
             <p class="price"></p>
             <p class="description"></p>
             <p><button>הוסף לסל</button></p>
@@ -27,13 +28,15 @@
         </div>
     </template>
 </head>
-<body>
+<body onload=getProducts()>
     <header>
         <div class="bar">
+
+
             <section class="QuickLinks">
                 <ul>
                     <li class="" data-section="myAccount">
-                        <a href="#" title="כניסה לצפייה בפרטי החשבון" onclick="TrackLinkID();" accesskey="h">החשבון שלי</a>
+                        <a href="#" title="כניסה לצפייה בפרטי החשבון" onclick="TrackLinkID(this);" accesskey="h">החשבון שלי</a>
                     </li>
                     <li>
                         <a href="#" title="קניה מהירה">קניה מהירה</a>
@@ -43,6 +46,7 @@
                     </li>
                 </ul>
             </section>
+
             <span class="BagSummary MiniBagNonSecure">
                 <a href="shoppingbag.html">
                     <div class="Icon">
