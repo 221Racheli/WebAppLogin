@@ -15,6 +15,7 @@ ul {
 
 .floatRight {
     float: right;
+    border: none;
 }
 
 .QuickLinks ul li a::after {
@@ -39,13 +40,19 @@ ul {
     padding: 15px;
     float: left;
     height: 550px;
+    width: 300px;
     margin: 6px;
 }
 
 .img-w {
     height: 300px;
-    width:100%;
+    width: 100%;
 }
+
+    .img-w img {
+        height: 250px;
+        width: 250px;
+    }
 
 p.description {
     height: 65px;
@@ -183,7 +190,12 @@ p.description {
 
 .filterBreak {
     padding-top: 10vh;
+    border: none;
 }
+    .filterBreak button {
+        border: none;
+    }
+
 
 
 
@@ -226,3 +238,8 @@ p.description {
         .pagination a:hover:not(.active) {
             background-color: #ddd;
         }
+
+.header42 {
+    width: 1px;
+    height: 1px;
+}

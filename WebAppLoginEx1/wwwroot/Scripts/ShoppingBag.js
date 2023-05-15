@@ -23,7 +23,19 @@ async function placeOrder() {
             }
         }
         );
-
+        if (response.status == 201) {
+            localStorage.removeItem('cart');
+            cart = [];
+            const data = await response.json();
+            document.getElementsByTagName("tbody")[0].innerHTML = '';
+            let h_3 = document.createElement("h3");
+            h_3.innerHTML = `Order ${data.id} added successfully`;
+            document.getElementsByTagName("tbody")[0].appendChild(h_3);
+            drawCartDetails();
+        }
+        else {
+            alert("oppss...");
+        }
     }
 }
 
@@ -38,7 +50,6 @@ function deleteItem(productId) {
         cart = cart.filter(product => product.id != productId);
     }
     localStorage.setItem('cart', JSON.stringify(cart));
-    document.getElementsByTagName("tbody")[0].innerHTML = ''
     drawOrderProducts();
 }
 
@@ -58,6 +69,7 @@ function drawCartDetails() {
 
 function drawOrderProducts() {
     console.log("drawOrderProducts");
+    document.getElementsByTagName("tbody")[0].innerHTML = ''
     cart.map(product => {
         var temp = document.getElementById("temp-row");
         var clon = temp.content.cloneNode(true);
