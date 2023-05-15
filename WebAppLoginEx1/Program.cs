@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Repository;
 using Service;
 using NLog.Web;
-
+using WebAppLoginEx1;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -50,6 +50,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseMiddlewareLogging();
 
 app.UseStaticFiles();
 

@@ -18,37 +18,11 @@ namespace WebAppLoginEx1.Controllers
             this.service = service;
         }
 
-        // GET: api/<passwordsController>
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
-
-        // GET api/<passwordsController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
         // POST api/<passwordsController>
         [HttpPost]
         public int Post([FromBody] Password password)
         {
             return service.getPasswordRate(password);
-        }
-
-        // PUT api/<passwordsController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/<passwordsController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
         }
     }
 }

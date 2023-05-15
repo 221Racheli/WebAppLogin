@@ -13,11 +13,7 @@ public partial class User
 
     public string? LastName { get; set; }
 
-    [StringLength(maximumLength: 20, ErrorMessage = "too long password")]
-
     public string Password { get; set; } = null!;
-
-    [EmailAddress(ErrorMessage = "Email not valid")]
 
     public string Email { get; set; } = null!;
 

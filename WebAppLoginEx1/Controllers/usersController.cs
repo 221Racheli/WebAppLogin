@@ -30,9 +30,11 @@ namespace WebAppLoginEx1.Controllers
 
         // GET api/<usersController>/5
         [HttpGet("{id}")]
-        public async Task<User> Get(int id)
+        public async Task<UserDTO> Get(int id)
         {
-            return await service.getbyIdAsync(id);
+            User user = await service.getbyIdAsync(id);
+            UserDTO userDTO = mapper.Map<User, UserDTO>(user);
+            return userDTO;
         }
 
 
@@ -82,12 +84,6 @@ namespace WebAppLoginEx1.Controllers
         {
             await service.updateAsync(userToUpdate, id);
 
-        }
-
-        // DELETE api/<usersController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
         }
 
     }

@@ -92,6 +92,10 @@ p.description {
     }
 
 .bar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100;
     background-color: black;
     height: 35px;
 }
@@ -169,13 +173,12 @@ p.description {
 
 
 .Filters {
-    position: absolute;
+    position: fixed;
     width: 184px;
     float: right;
-    margin: 4px 4px;
+    margin: 40px 4px;
     padding-top: 50px;
     padding-bottom: 10px;
-    position: absolute;
     z-index: 102;
     background-color: rgb(249, 249, 249);
     font-family: Arial;
@@ -242,4 +245,8 @@ p.description {
 .header42 {
     width: 1px;
     height: 1px;
+}
+
+#PoductList{
+    margin:40px;
 }

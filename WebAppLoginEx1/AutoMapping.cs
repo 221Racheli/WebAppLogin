@@ -13,7 +13,9 @@ namespace WebAppLoginEx1
             CreateMap<Product, ProductDTO>()
                 .ForMember(dest=>dest.CategoryName,opt=>opt.MapFrom(src=>src.Category.Name))
                 .ReverseMap();
-            CreateMap<OrderItem, OrderItemDTO>().ReverseMap();
+            CreateMap<OrderItem, OrderItemDTO>()
+                .ForMember(dest => dest.Price, opt => opt.MapFrom(src => src.Product.Price))
+                .ReverseMap();
             CreateMap<Category, CategoryDTO>().ReverseMap();
         }
         

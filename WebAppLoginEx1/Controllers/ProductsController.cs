@@ -37,13 +37,6 @@ namespace WebAppLoginEx1.Controllers
 
         }
 
-        // GET api/<ProductsController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
 
         // POST api/<ProductsController>
         [HttpPost]
