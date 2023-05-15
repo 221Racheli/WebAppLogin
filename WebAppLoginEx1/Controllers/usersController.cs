@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System;
+﻿using AutoMapper;
+using DTO;
+using entities;
+using Microsoft.AspNetCore.Mvc;
+using Service;
 using System.Reflection.PortableExecutable;
 using System.Text.Json;
 
@@ -11,21 +14,25 @@ namespace WebAppLoginEx1.Controllers
     [ApiController]
     public class usersController : ControllerBase
     {
+        ILogger<usersController> logger;
+        IUserService service;
+        IPasswordsService servicePass;
+        IMapper mapper;
 
-        string filePath = "./usersDetails.txt";
-
-        // GET: api/<usersController>
-        [HttpGet]
-        public IEnumerable<string> Get()
+        public usersController(IUserService service, IPasswordsService servicePass, IMapper mapper, ILogger<usersController> logger)
         {
-            return new string[] { "value1", "value2" };
+            this.service = service;
+            this.servicePass = servicePass;
+            this.mapper = mapper;
+            this.logger = logger;
         }
+
 
         // GET api/<usersController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public async Task<User> Get(int id)
         {
-            return "value";
+            return await service.getbyIdAsync(id);
         }
 
 
@@ -33,55 +40,47 @@ namespace WebAppLoginEx1.Controllers
 
 
         [HttpPost]
-        public ActionResult<User> LoginPost([FromBody] User loginUser)
+        public async Task<ActionResult<UserDTO>> LoginPost([FromBody] UserDTO loginUserDTO)
         {
-            User found = foundUser(loginUser);
+            User loginUser = mapper.Map<UserDTO, User>(loginUserDTO);
+            User found = await service.loginAsync(loginUser);
             if (found != null)
-                return found;
+            {
+                UserDTO foundDTO = mapper.Map<User, UserDTO>(found);
+                logger.LogInformation($"Login - userName: {foundDTO.Email} at {DateTime.UtcNow.ToLongTimeString()}");
+                return foundDTO;
+            }
             return NoContent();
         }
 
 
 
         [HttpPost("regist")]
-        public ActionResult<User> Post([FromBody] User userRegist)
+        public async Task<ActionResult<UserDTO>> Post([FromBody] UserDTO userRegistDTO)
         {
-            if (!existUserName(userRegist.email))
+            Password pass = new Password(userRegistDTO.Password);
+            if (servicePass.getPasswordRate(pass) > 2)
             {
-                Console.WriteLine("regist controler");
-                int numberOfUsers = System.IO.File.ReadLines(filePath).Count();
-                userRegist.userId = numberOfUsers + 1;
-                string userJson = JsonSerializer.Serialize(userRegist);
-                System.IO.File.AppendAllText(filePath, userJson + Environment.NewLine);
-                return CreatedAtAction(nameof(Get), new { id = userRegist.userId }, userRegist);
+                User userRegist = mapper.Map<UserDTO, User>(userRegistDTO);
+                User userCreated = await service.registerAsync(userRegist);
+                if (userCreated != null)
+                {
+                    UserDTO userDTOCreated = mapper.Map<User, UserDTO>(userCreated);
+                    logger.LogInformation($"Regist - userName: {userDTOCreated.Email} at {DateTime.UtcNow.ToLongTimeString()}");
+                    return CreatedAtAction(nameof(Get), new { id = userDTOCreated.Id }, userDTOCreated);
+                }
+                    
             }
-            return BadRequest("email already exists");
-
+            return BadRequest();
         }
+
 
 
         // PUT api/<usersController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] User userToUpdate)
+        public async Task Put(int id, [FromBody] User userToUpdate)
         {
-            string textToReplace = string.Empty;
-            using (StreamReader reader = System.IO.File.OpenText(filePath))
-            {
-                string currentUserInFile;
-                while ((currentUserInFile = reader.ReadLine()) != null)
-                {
-
-                    User user = JsonSerializer.Deserialize<User>(currentUserInFile);
-                    if (user.userId == id)
-                        textToReplace = currentUserInFile;
-                }
-            }
-            if (textToReplace != string.Empty)
-            {
-                string text = System.IO.File.ReadAllText(filePath);
-                text = text.Replace(textToReplace, JsonSerializer.Serialize(userToUpdate));
-                System.IO.File.WriteAllText(filePath, text);
-            }
+            await service.updateAsync(userToUpdate, id);
 
         }
 
@@ -91,34 +90,5 @@ namespace WebAppLoginEx1.Controllers
         {
         }
 
-        public User foundUser(User userToSearch)
-        {
-            using (StreamReader reader = System.IO.File.OpenText(filePath))
-            {
-                string? currentUserInFile;
-                while ((currentUserInFile = reader.ReadLine()) != null)
-                {
-                    User user = JsonSerializer.Deserialize<User>(currentUserInFile);
-                    if (user.email == userToSearch.email && user.password == userToSearch.password)
-                        return user;
-                }
-            }
-            return null;
-        }
-
-        public Boolean existUserName(String userName)
-        {
-            using (StreamReader reader = System.IO.File.OpenText(filePath))
-            {
-                string? currentUserInFile;
-                while ((currentUserInFile = reader.ReadLine()) != null)
-                {
-                    User user = JsonSerializer.Deserialize<User>(currentUserInFile);
-                    if (user.email == userName)
-                        return true;
-                }
-            }
-            return false;
-        }
     }
 }
