@@ -23,6 +23,8 @@ builder.Services.AddTransient<ICategoryRepository, CategoryRepository>();
 
 builder.Services.AddTransient<IProductRepository, ProductRepository>();
 
+builder.Services.AddTransient<IRatingRepository, RatingRepository>();
+
 builder.Services.AddTransient<IUserService, UserService>();
 
 builder.Services.AddTransient<IOrderService, OrderService>();
@@ -30,6 +32,8 @@ builder.Services.AddTransient<IOrderService, OrderService>();
 builder.Services.AddTransient<ICategoryService, CategoryService>();
 
 builder.Services.AddTransient<IProductService, ProductService>();
+
+builder.Services.AddTransient<IRatingService, RatingService>();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
@@ -52,6 +56,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseMiddlewareLogging();
+
+app.UseMiddlewareRating();
 
 app.UseStaticFiles();
 

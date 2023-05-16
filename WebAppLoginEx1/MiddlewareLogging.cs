@@ -26,6 +26,7 @@ namespace WebAppLoginEx1
             catch(Exception e)
             {
                 _logger.LogError($"Error from middelware {1} at {2}", e.Message , e.StackTrace);
+                httpContext.Response.StatusCode = 500;
             }
         }
     }
