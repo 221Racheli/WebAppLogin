@@ -28,6 +28,13 @@ namespace Repository
         {
             return await _DbContext.Products.Include(product => product.Category).ToListAsync();
         }
+
+        public async Task<int> getProductPriceByProductId(int productId)
+        {
+            Product product =await _DbContext.Products.FindAsync(productId);
+            return (int)product.Price;
+        }
+
         public async Task<IEnumerable<Product>> getProductsBySearch(string? desc, int? minPrice, int? maxPrice, IEnumerable<string>? categoryId)
         {
             var query = _DbContext.Products.Where(product =>
