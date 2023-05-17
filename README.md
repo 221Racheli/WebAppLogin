@@ -18,7 +18,7 @@ desc according teacher
 2. Navigate to the API endpoints to interact with the application.
 
 ## API Endpoints
-# Users
+### Users
 
 | HTTP Method | Endpoint                | Description                   |
 |-------------|-------------------------|-------------------------------|
