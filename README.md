@@ -56,7 +56,10 @@ desc according teacher
 |-------------|-------------------------|-------------------------------|
 | POST        |/api/passwords           | Create a new password         |
 
+## Dependencies
 
+- ASP.NET Core 
+- Entity Framework Core 
 
 
 
