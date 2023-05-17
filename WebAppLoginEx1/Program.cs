@@ -67,4 +67,14 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+app.Use(async (context, next) =>
+{
+    await next(context);
+    if (context.Response.StatusCode == 404)
+    {
+        context.Response.ContentType = "text/html";
+        await context.Response.SendFileAsync("./wwwroot/404.html");
+    }
+});
+
 app.Run();

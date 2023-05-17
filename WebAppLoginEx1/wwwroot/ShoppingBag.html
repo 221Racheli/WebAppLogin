@@ -8,13 +8,24 @@
     <template id="temp-row">
         <tr class="item-row">
             <td class="imageColumn"><a rel="lightbox" href="#"> <img src="tmp.jpg" alt="" style="width:100%"></a></td>
-            <td class="descriptionColumn"><div><h3 class="itemName" id="try"></h3><h6><p class="itemNumber"></p><a href="#">לפרטים נוספים</a></h6></div></td>
+            <td class="descriptionColumn"><div><h3 class="itemName" id="try"></h3><h6><p class="itemNumber"></p></h6></div></td>
             <td class="availabilityColumn"><div><h3 class="itemName">במלאי</h3></div></td>
             <td class="totalColumn delete"><div class="expandoHeight" style="height: 99px;"><p class="price"></p><a href="#" title="לחצו כאן כדי להסיר את פריט זה" class="Hide DeleteButton showText">הסרת פריט</a></div></td>
         </tr>
     </template>
 </head>
 <body>
+    <header>
+        <div class="bar">
+            <section class="QuickLinks">
+                <ul>
+                    <li class="" data-section="myAccount">
+                        <a href="#" title="כניסה לצפייה בפרטי החשבון" onclick="TrackLinkID(this);" accesskey="h">החשבון שלי</a>
+                    </li>
+                </ul>
+            </section>
+        </div>
+    </header>
     <div class="cart">
         <div id="title">
             <h1> סל קניות </h1>

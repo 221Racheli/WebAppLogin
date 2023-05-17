@@ -31,7 +31,7 @@ namespace WebAppLoginEx1
                 UserAgent = httpContext.Request.Headers.UserAgent,
                 RecordDate = DateTime.Now
             };
-            service.addRatingAsync(rating);
+            await service.addRatingAsync(rating);
             await _next(httpContext);
         }
     }

@@ -24,6 +24,10 @@ ul {
     margin-left: 10px;
 }
 
+/*#filters{
+   position:absolute;
+}*/
+
 
 .QuickLinks ul li a::after {
     content: '|';
@@ -176,6 +180,7 @@ p.description {
     position: fixed;
     width: 184px;
     float: right;
+    display: inline;
     margin: 40px 4px;
     padding-top: 50px;
     padding-bottom: 10px;
@@ -247,6 +252,7 @@ p.description {
     height: 1px;
 }
 
-#PoductList{
-    margin:40px;
+#PoductList {
+    margin: 40px;
+    margin-left:50px;
 }
