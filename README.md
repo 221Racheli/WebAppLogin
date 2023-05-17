@@ -18,7 +18,7 @@ desc according teacher
 2. Navigate to the API endpoints to interact with the application.
 
 ## API Endpoints
-#Users
+# Users
 
 | HTTP Method | Endpoint                | Description                   |
 |-------------|-------------------------|-------------------------------|
@@ -62,4 +62,9 @@ desc according teacher
 - Entity Framework Core 
 
 
+## Configuration
+
+The configuration for the project can be found in the `appsettings.json` file. It includes the following settings:
+
+- connection string: Defining the database connection statement
 
