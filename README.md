@@ -22,23 +22,41 @@ desc according teacher
 
 | HTTP Method | Endpoint                | Description                   |
 |-------------|-------------------------|-------------------------------|
-| GET         | /api/users/{id}         | Get a specific resource by ID |
-| POST        | /api/users              | Create a new resource         |
-| POST        | /api/users              | Update an existing resource   |
-| PUT         | /api/users/{id}         | Delete a resource             |
+| GET         | /api/users/{id}         | Get a specific user by ID     |
+| POST        | /api/users              | logIn                         |
+| POST        | /api/users              | register                      |
+| PUT         | /api/users/{id}         | Update an existing user       |
 
 #Products
 
 | HTTP Method | Endpoint                | Description                   |
 |-------------|-------------------------|-------------------------------|
-| GET         | /api/Products           | Get all resources             |
-| GET         | /api/Products/search    | Get a specific resource by ID |
-| POST        | /api/Products           | Create a new resource         |
+| GET         | /api/Products           | Get all products              |
+| GET         | /api/Products/search    | Get products by search        |
+| POST        | /api/Products           | Create a new product          |
 
 #Categories
 
 | HTTP Method | Endpoint                | Description                   |
 |-------------|-------------------------|-------------------------------|
-| GET         |/api/Categories          | Get all resources             |
-| POST        |/api/Categories          | Create a new resource         |
+| GET         |/api/Categories          | Get all categories            |
+| POST        |/api/Categories          | Create a new category         |
+
+#Orders
+
+
+| HTTP Method | Endpoint                | Description                   |
+|-------------|-------------------------|-------------------------------|
+| GET         |/api/Orders/{id}         |Get a specific order by ID     |
+| POST        |/api/Orders              | Create a new order            |
+
+#passwords
+
+| HTTP Method | Endpoint                | Description                   |
+|-------------|-------------------------|-------------------------------|
+| POST        |/api/passwords           | Create a new password         |
+
+
+
+
 
