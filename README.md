@@ -27,7 +27,7 @@ desc according teacher
 | POST        | /api/users              | register                      |
 | PUT         | /api/users/{id}         | Update an existing user       |
 
-# Products
+### Products
 
 | HTTP Method | Endpoint                | Description                   |
 |-------------|-------------------------|-------------------------------|
@@ -35,14 +35,14 @@ desc according teacher
 | GET         | /api/Products/search    | Get products by search        |
 | POST        | /api/Products           | Create a new product          |
 
-# Categories
+### Categories
 
 | HTTP Method | Endpoint                | Description                   |
 |-------------|-------------------------|-------------------------------|
 | GET         |/api/Categories          | Get all categories            |
 | POST        |/api/Categories          | Create a new category         |
 
-# Orders
+### Orders
 
 
 | HTTP Method | Endpoint                | Description                   |
@@ -50,7 +50,7 @@ desc according teacher
 | GET         |/api/Orders/{id}         |Get a specific order by ID     |
 | POST        |/api/Orders              | Create a new order            |
 
-# passwords
+### passwords
 
 | HTTP Method | Endpoint                | Description                   |
 |-------------|-------------------------|-------------------------------|
