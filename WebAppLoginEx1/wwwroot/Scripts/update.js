@@ -3,11 +3,7 @@
 const user = JSON.parse(localStorage.getItem("userInfo"));
 
 const name = async () => {
-    console.log("In func");
-    let m_body = document.getElementsByTagName("body")[0];
-    let h_3 = document.createElement("h3");
-    h_3.innerHTML = `Hello ${user.firstName} ${user.lastName}`;
-    m_body.appendChild(h_3);
+    document.getElementById("name").innerText=`Hello ${user.firstName} ${user.lastName}`
 }
 
 name();
@@ -32,7 +28,13 @@ async function Update() {
     }
     else {
         const data = await response.json();
-        localStorage.setItem("userInfo", JSON.stringify({ firstName: data.firstName, lastName: data.lastName, id: data.id });
+        localStorage.setItem("userInfo", JSON.stringify({ firstName: data.firstName, lastName: data.lastName, id: data.id }));
+        name();
         alert("the update was successful");
     }
+}
+
+
+function TrackLinkID() {
+    window.location.href = "products.html";
 }

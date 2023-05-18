@@ -30,11 +30,15 @@ namespace WebAppLoginEx1.Controllers
 
         // GET api/<usersController>/5
         [HttpGet("{id}")]
-        public async Task<UserDTO> Get(int id)
+        public async Task<ActionResult<UserDTO>> Get(int id)
         {
             User user = await service.getbyIdAsync(id);
-            UserDTO userDTO = mapper.Map<User, UserDTO>(user);
-            return userDTO;
+            if (user!=null)
+            {
+                UserDTO userDTO = mapper.Map<User, UserDTO>(user);
+                return Ok(userDTO);
+            }
+            return NoContent();
         }
 
 
@@ -71,7 +75,7 @@ namespace WebAppLoginEx1.Controllers
                     logger.LogInformation($"Regist - userName: {userDTOCreated.Email} at {DateTime.UtcNow.ToLongTimeString()}");
                     return CreatedAtAction(nameof(Get), new { id = userDTOCreated.Id }, userDTOCreated);
                 }
-                    
+
             }
             return BadRequest();
         }
@@ -83,7 +87,6 @@ namespace WebAppLoginEx1.Controllers
         public async Task Put(int id, [FromBody] User userToUpdate)
         {
             await service.updateAsync(userToUpdate, id);
-
         }
 
     }

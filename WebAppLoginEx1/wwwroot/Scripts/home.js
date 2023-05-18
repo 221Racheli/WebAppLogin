@@ -22,7 +22,6 @@ async function LogIn() {
         }
         else {
             const data = await response.json();
-            console.log(data);
             if (data) {
                 localStorage.setItem("userInfo", JSON.stringify({ firstName: data.firstName, lastName: data.lastName, id: data.id }));
                 window.location.href = "products.html";
@@ -52,7 +51,7 @@ async function Regist() {
     );
     if (!response.ok) {
         if (response.status == '400') {
-            alert(`email already exists ${response.status}`);
+            alert(`opps try again :(`);
         }
     }
     else {
@@ -78,7 +77,6 @@ async function getPasswordStrength(password) {
     //const data = await axios.post("/api/users/password?password=" + password); 
     );
     const data = await response.json();
-    console.log(data);
     document.getElementById("passwordStrength").value=data ;
 }
 

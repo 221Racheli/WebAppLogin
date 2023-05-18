@@ -24,11 +24,16 @@ namespace WebAppLoginEx1.Controllers
 
         // GET api/<OrdersController>/5
         [HttpGet("{id}")]
-        public async Task<OrderDTO> Get(int id)
+        public async Task<ActionResult<OrderDTO>> Get(int id)
         {
             Order order = await service.getOrderAsync(id);
-            OrderDTO orderDTO = mapper.Map<Order, OrderDTO>(order);
-            return orderDTO;
+            if (order!=null)
+            {
+                OrderDTO orderDTO = mapper.Map<Order, OrderDTO>(order);
+                return Ok(orderDTO);
+            }
+            return BadRequest("no order found");
+
         }
 
         // POST api/<OrdersController>

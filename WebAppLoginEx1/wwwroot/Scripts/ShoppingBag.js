@@ -1,6 +1,10 @@
 ﻿
 let cart = [];
 
+function TrackLinkID(page) {
+    window.location.href = `${page.id}.html`;
+}
+
 function orderSum() {
     let sum = 0;
     cart.forEach(product => sum += product.price*product.count);
@@ -9,10 +13,8 @@ function orderSum() {
 
 
 async function placeOrder() {
-    console.log("placeOrder");
     const orderItems = cart.map(product => { return ({ productId: product.id, quantity: product.count }) });
     const order = JSON.stringify({ UserId: parseInt(JSON.parse(localStorage.getItem("userInfo")).id), OrderSum: orderSum(), Date: new Date().toISOString().slice(0,10), OrderItems: orderItems });
-    console.log(order);
     if (cart) {
         const response = await fetch(
             '/api/orders', {
@@ -41,7 +43,6 @@ async function placeOrder() {
 
 
 function deleteItem(productId) {
-    console.log("deleteItem");
     const ind = cart.findIndex(p => p.id == productId);
     if (cart[ind].count > 1) {
         cart[ind].count--;
@@ -68,7 +69,6 @@ function drawCartDetails() {
 }
 
 function drawOrderProducts() {
-    console.log("drawOrderProducts");
     document.getElementsByTagName("tbody")[0].innerHTML = ''
     cart.map(product => {
         var temp = document.getElementById("temp-row");

@@ -22,18 +22,27 @@ namespace WebAppLoginEx1.Controllers
 
         // GET: api/<ProductsController>
         [HttpGet]
-        public async Task<IEnumerable<ProductDTO>> Get()
+        public async Task<ActionResult<IEnumerable<ProductDTO>>> Get()
         {
             IEnumerable<Product> products = await service.getProductsWithCategoryAsync();
-            IEnumerable<ProductDTO> productsDTO = mapper.Map<IEnumerable<Product>, IEnumerable<ProductDTO>>(products);
-            return productsDTO;
+            if (products!=null)
+            {
+                IEnumerable<ProductDTO> productsDTO = mapper.Map<IEnumerable<Product>, IEnumerable<ProductDTO>>(products);
+                return Ok(productsDTO);
+            }
+            return BadRequest("no products");
+
         }
         [HttpGet("search")]
-        public async Task<IEnumerable<ProductDTO>> GetbySearch([FromQuery] IEnumerable<string>? categoryId, string? desc, int? minPrice, int? maxPrice)
+        public async Task<ActionResult<IEnumerable<ProductDTO>>> GetbySearch([FromQuery] IEnumerable<string>? categoryId, string? desc, int? minPrice, int? maxPrice)
         {
             IEnumerable<Product> products = await service.getProductsBySearch(desc, minPrice, maxPrice, categoryId);
-            IEnumerable<ProductDTO> productsDTO = mapper.Map<IEnumerable<Product>, IEnumerable<ProductDTO>>(products);
-            return productsDTO;
+            if (products!=null)
+            {
+                IEnumerable<ProductDTO> productsDTO = mapper.Map<IEnumerable<Product>, IEnumerable<ProductDTO>>(products);
+                return Ok(productsDTO);
+            }
+            return BadRequest("no products");
 
         }
 

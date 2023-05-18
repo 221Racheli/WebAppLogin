@@ -6,7 +6,6 @@ let cart = [];
 function addToCart(newProduct) {
     const index = cart.findIndex(product => product.id == newProduct.id)
     if (index < 0) {
-        console.log(index);
         cart.push({ ...newProduct, 'count': 1 });
     }
     else {
@@ -36,8 +35,6 @@ function drawProducts(data) {
 }
 
 function drawCategories(data) {
-    console.log("drawCategories");
-    console.log(data);
     data.forEach(category => {
         var temp = document.getElementById("temp-category");
         var clon = temp.content.cloneNode(true);
@@ -74,7 +71,6 @@ async function getProducts() {
 }
 
 async function getCategories() {
-    console.log("getCategories");
     const response = await fetch(
         `/api/categories`, {
         method: 'GET',
