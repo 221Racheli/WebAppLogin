@@ -1,13 +1,16 @@
 # Wall sticker shop
 
 The project is written in web api ASP.Net 7 based rest api.
-Includes: server-side and client-side validations, password strength check for added security.
-The project is built according to the layer model and uses Dependency Injection (DI).
+Server side is written in C#, Client side in using H, Ecmascript and CSS.
+The project is built according to the layer model and uses Dependency Injection (DI) to connect between layers.
 Using async-await throughout the process for scalability.
 Entity Framework ORM is used, using DB first.
 Use of swagger
 A DTO was used in the project in order to avoid circular dependencies and in addition to maintain a compactness between the layers, the conversion of the objects was done using the AutoMapper library.
 Built-in handling of errors by middelWare designated handling by writing to a log file and sending an email.
+Special parameters as connection strings are kept in configuration file.
+All Calls to the server are recorded in the rating table for furthore investigation.
+Includes: server-side and client-side validations, password strength check for security.
 
 ## Technologies Used
 
