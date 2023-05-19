@@ -29,9 +29,9 @@ namespace Service
             return null;
         }
 
-        public async Task updateAsync(User user, int id)
+        public async Task<User> updateAsync(User user, int id)
         {
-            await repository.updateUserAsync(user, id);
+           return await repository.updateUserAsync(user, id);
         }
 
         public async Task<User> getbyIdAsync(int id)

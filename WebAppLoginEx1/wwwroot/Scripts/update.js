@@ -1,8 +1,8 @@
 ﻿
 
-const user = JSON.parse(localStorage.getItem("userInfo"));
+let user = JSON.parse(localStorage.getItem("userInfo"));
 
-const name = async () => {
+const name = () => {
     document.getElementById("name").innerText=`Hello ${user.firstName} ${user.lastName}`
 }
 
@@ -29,6 +29,7 @@ async function Update() {
     else {
         const data = await response.json();
         localStorage.setItem("userInfo", JSON.stringify({ firstName: data.firstName, lastName: data.lastName, id: data.id }));
+        user = JSON.parse(localStorage.getItem("userInfo"));
         name();
         alert("the update was successful");
     }

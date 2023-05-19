@@ -39,10 +39,11 @@ namespace Repository
         }
 
 
-        public async Task updateUserAsync(User userToUpdate, int id)
+        public async Task<User> updateUserAsync(User userToUpdate, int id)
         {
             _DbContext.Users.Update(userToUpdate);
             await _DbContext.SaveChangesAsync();
+            return userToUpdate;
         }
 
         public async Task<User> getUserAsync(int id)

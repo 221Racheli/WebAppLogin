@@ -8,6 +8,6 @@ namespace Repository
         Task<bool> existEmailAsync(string userName);
         Task<User> foundUserAsync(User userToSearch);
         Task<User> getUserAsync(int id);
-        Task updateUserAsync(User userToUpdate, int id);
+        Task<User> updateUserAsync(User userToUpdate, int id);
     }
 }

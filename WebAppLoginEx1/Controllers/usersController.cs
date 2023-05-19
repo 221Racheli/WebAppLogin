@@ -84,9 +84,11 @@ namespace WebAppLoginEx1.Controllers
 
         // PUT api/<usersController>/5
         [HttpPut("{id}")]
-        public async Task Put(int id, [FromBody] User userToUpdate)
+        public async Task<UserDTO> Put(int id, [FromBody] User userToUpdate)
         {
-            await service.updateAsync(userToUpdate, id);
+            User userUpdate =await service.updateAsync(userToUpdate, id);
+            UserDTO updateUser = mapper.Map<User, UserDTO>(userUpdate);
+            return updateUser;
         }
 
     }

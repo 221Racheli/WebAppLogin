@@ -7,6 +7,6 @@ namespace Service
         Task<User> getbyIdAsync(int id);
         Task<User> loginAsync(User user);
         Task<User> registerAsync(User user);
-        Task updateAsync(User user, int id);
+        Task<User> updateAsync(User user, int id);
     }
 }
